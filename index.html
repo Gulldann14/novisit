@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МУСЯ 👑</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden; /* Чтобы блестки не создавали скролл */
+        }
+
+        body {
+            /* Анимированный радужный фон */
+            background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            background-size: 400% 400%;
+            animation: rainbowBG 5s ease infinite;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            position: relative;
+        }
+
+        .container {
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7); /* Черная подложка, чтобы текст читался */
+            padding: 40px;
+            border-radius: 30px;
+            border: 5px dashed #fff;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+            transform: rotate(-3deg); /* Немного криво, для мемности */
+            max-width: 90%;
+        }
+
+        h1 {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(4rem, 15vw, 10rem);
+            color: #ff00ff;
+            text-shadow: 
+                4px 4px 0 #fff,
+                -4px -4px 0 #fff,
+                4px -4px 0 #fff,
+                -4px 4px 0 #fff,
+                0 0 30px #ff00ff;
+            line-height: 1;
+            letter-spacing: 5px;
+            animation: shake 0.5s infinite;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: #00ffff;
+            text-shadow: 2px 2px 0 #000;
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-weight: 900;
+            background: #000;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .unicorn {
+            font-size: 4rem;
+            margin-top: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        /* Анимации */
+        @keyframes rainbowBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+
+        /* Стили для летающих эмодзи */
+        .floating-emoji {
+            position: absolute;
+            pointer-events: none;
+            z-index: 5;
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(2) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Муся</h1>
+        <h2>спидозная шлюха</h2>
+        <div class="unicorn">🦄🌈🐈✨</div>
+    </div>
+
+    <script>
+        // Список эмодзи для спавна
+        const emojis = ['🦄', '🌈', '🐈', '✨', '👑', '💖', '😻', '🤡'];
+        
+        // Функция создания летающего эмодзи
+        function createEmoji() {
+            const el = document.createElement('div');
+            el.classList.add('floating-emoji');
+            el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Случайный размер
+            const size = Math.random() * 40 + 20; // от 20 до 60px
+            el.style.fontSize = `${size}px`;
+            
+            // Случайная позиция по горизонтали
+            el.style.left = `${Math.random() * 100}vw`;
+            
+            // Случайная позиция снизу (чтобы вылетали из-за экрана)
+            el.style.bottom = `-100px`;
+            
+            // Случайная скорость (от 3 до 7 секунд)
+            const duration = Math.random() * 4 + 3;
+            el.style.animationDuration = `${duration}s`;
+            
+            document.body.appendChild(el);
+            
+            // Удаляем элемент после завершения анимации, чтобы не грузить браузер
+            setTimeout(() => {
+                el.remove();
+            }, duration * 1000);
+        }
+
+        // Запускаем бесконечный спавн эмодзи (каждые 200мс)
+        setInterval(createEmoji, 200);
+        
+        // При клике в любом месте — выпускаем сразу 10 эмодзи (эффект взрыва)
+        document.body.addEventListener('click', () => {
+            for(let i = 0; i < 10; i++) {
+                setTimeout(createEmoji, i * 50);
+            }
+        });
+    </script>
+
+</body>
+</html>
